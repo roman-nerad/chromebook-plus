@@ -1,0 +1,194 @@
+/* =========================================
+   STYLY STRÁNKY – Chromebook Plus
+   Používám relativní jednotky: rem, em, %, fr, vw
+   ========================================= */
+
+/* Barvy si uložím do proměnných, ať je můžu snadno změnit */
+:root {
+    --modra: #2150b8;
+    --tmava: #1b2a41;
+    --svetla: #eef3fb;
+    --zluta: #f6c343;
+    --bila: #ffffff;
+}
+
+/* Základní nastavení celé stránky */
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    font-family: "Segoe UI", Roboto, Arial, sans-serif;
+    font-size: 1rem;          /* rem = velikost písma prohlížeče (obvykle 16 px) */
+    line-height: 1.6;
+    color: var(--tmava);
+    background-color: var(--svetla);
+
+    /* ===== LAYOUT POMOCÍ GRIDU ===== */
+    display: grid;
+    grid-template-columns: 16rem 1fr;       /* úzký sloupec vlevo, zbytek pro obsah */
+    grid-template-areas:
+        "hlavicka  hlavicka"
+        "navigace  obsah"
+        "paticka   paticka";
+    gap: 2rem;
+    min-height: 100vh;
+}
+
+/* Každé části řeknu, do které oblasti gridu patří */
+.hlavicka  { grid-area: hlavicka; }
+.navigace  { grid-area: navigace; }
+.obsah     { grid-area: obsah; }
+.paticka   { grid-area: paticka; }
+
+/* ---------- Hlavička ---------- */
+.hlavicka {
+    background-color: var(--modra);
+    color: var(--bila);
+    padding: 3rem 5%;
+    border-bottom: 0.4rem solid var(--zluta);
+}
+
+.hlavicka h1 {
+    margin: 0;
+    font-size: 3.5rem;
+    line-height: 1.1;
+}
+
+.pro-koho {
+    margin: 0 0 0.5rem;
+    font-size: 1.1rem;
+    color: var(--zluta);
+    font-weight: bold;
+}
+
+.podtitul {
+    margin: 0.5rem 0 0;
+    font-size: 1.25rem;
+    opacity: 0.9;
+}
+
+/* ---------- Navigace ---------- */
+.navigace {
+    padding-left: 1.5rem;
+}
+
+.navigace h2 {
+    font-size: 1.2rem;
+    margin-top: 0;
+}
+
+.navigace ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    position: sticky;
+    top: 1rem;
+}
+
+.navigace a {
+    display: block;
+    padding: 0.6rem 0.8rem;
+    margin-bottom: 0.4rem;
+    color: var(--tmava);
+    text-decoration: none;
+    border-left: 0.25rem solid transparent;
+    border-radius: 0.3rem;
+    transition: background-color 0.2s, border-color 0.2s;
+}
+
+/* ===== ZMĚNA STYLU PŘI NAJETÍ MYŠÍ (hover) ===== */
+.navigace a:hover {
+    background-color: var(--bila);
+    border-left-color: var(--zluta);
+    color: var(--modra);
+}
+
+/* ---------- Hlavní obsah ---------- */
+.obsah {
+    max-width: 60rem;
+    padding-right: 5%;
+}
+
+.obsah h2 {
+    font-size: 1.8rem;
+    color: var(--modra);
+    margin-top: 0;
+}
+
+.obsah h3 {
+    font-size: 1.3rem;
+    margin-top: 0;
+}
+
+section {
+    margin-bottom: 3rem;
+}
+
+/* Dva sloupce vedle sebe – taky grid */
+.dva-sloupce {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.5rem;
+}
+
+.karta {
+    background-color: var(--bila);
+    padding: 1.5rem;
+    border-radius: 0.8rem;
+    border-top: 0.3rem solid var(--modra);
+    transition: transform 0.2s, border-color 0.2s;
+}
+
+/* Hover na kartě: trochu se zvedne a změní barvu okraje */
+.karta:hover {
+    transform: translateY(-0.3rem);
+    border-top-color: var(--zluta);
+}
+
+.karta li {
+    margin-bottom: 0.8rem;
+}
+
+.zaver {
+    font-size: 1.15em;         /* em = relativně k okolnímu písmu */
+    font-weight: bold;
+    padding: 1rem 1.5rem;
+    background-color: var(--zluta);
+    border-radius: 0.5rem;
+}
+
+/* ---------- Patička ---------- */
+.paticka {
+    text-align: center;
+    padding: 1.5rem;
+    background-color: var(--tmava);
+    color: var(--bila);
+    font-size: 0.9rem;
+}
+
+/* ===== Mobilní telefony (úzká obrazovka) ===== */
+@media (max-width: 50rem) {
+    body {
+        grid-template-columns: 1fr;          /* jen jeden sloupec */
+        grid-template-areas:
+            "hlavicka"
+            "navigace"
+            "obsah"
+            "paticka";
+    }
+
+    .obsah,
+    .navigace {
+        padding: 0 5%;
+    }
+
+    .dva-sloupce {
+        grid-template-columns: 1fr;
+    }
+
+    .hlavicka h1 {
+        font-size: 2.5rem;
+    }
+}
